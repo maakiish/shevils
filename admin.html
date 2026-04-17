@@ -282,14 +282,6 @@
 
     .laster-tekst { color: var(--off); font-size: 0.8rem; letter-spacing: 0.1em; }
 
-    #bilde-preview {
-      display: none;
-      width: 80px; height: 80px;
-      object-fit: cover;
-      border: 1px solid var(--smoke);
-      margin-top: 0.5rem;
-    }
-
     canvas#komprimering-canvas { display: none; }
 
     #login-feil {
@@ -356,7 +348,10 @@
         <div class="felt">
           <label>Bilde (valgfritt)</label>
           <input type="file" id="ny-bilde" accept="image/*" />
-          <img id="bilde-preview" alt="preview" />
+          <div id="bilde-preview-wrap" style="display:none;align-items:center;gap:0.8rem;margin-top:0.5rem;">
+            <img id="bilde-preview" alt="preview" style="width:80px;height:80px;object-fit:cover;border:1px solid var(--smoke);" />
+            <button class="knapp liten slett" type="button" onclick="fjernBilde()">Fjern</button>
+          </div>
         </div>
         <div class="felt-rad">
           <input type="checkbox" id="ny-pinned" />
@@ -380,9 +375,9 @@
     /* ══════════════════════════════════════
        ✏️ Fyll inn Supabase-detaljer og passord når database er klar
     ══════════════════════════════════════ */
-    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
-    const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
+      const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+      const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
 
     async function loggInn() {
       const pw = document.getElementById('passord-input').value;
@@ -519,11 +514,18 @@
       const reader = new FileReader();
       reader.onload = e => {
         const preview = document.getElementById('bilde-preview');
+        const wrap = document.getElementById('bilde-preview-wrap');
         preview.src = e.target.result;
-        preview.style.display = 'block';
+        wrap.style.display = 'flex';
       };
       reader.readAsDataURL(fil);
     });
+
+    function fjernBilde() {
+      document.getElementById('ny-bilde').value = '';
+      document.getElementById('bilde-preview').src = '';
+      document.getElementById('bilde-preview-wrap').style.display = 'none';
+    }
 
     async function komprimerOgLastOpp(fil) {
       return new Promise((resolve, reject) => {
@@ -577,7 +579,7 @@
         document.getElementById('ny-undertittel').value = '';
         document.getElementById('ny-lenke').value = '';
         document.getElementById('ny-bilde').value = '';
-        document.getElementById('bilde-preview').style.display = 'none';
+        document.getElementById('bilde-preview-wrap').style.display = 'none';
         document.getElementById('ny-pinned').checked = false;
         hentPoster();
       } catch(e) {
