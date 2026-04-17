@@ -314,7 +314,10 @@
 
       <div class="admin-header">
         <h1>Shevils Admin</h1>
-        <button class="knapp liten nøytral" onclick="loggUt()">Logg ut</button>
+        <div style="display:flex;gap:0.5rem;">
+          <a href="linker.html" target="_blank" class="knapp liten nøytral">Link-in-bio ↗</a>
+          <button class="knapp liten nøytral" onclick="loggUt()">Logg ut</button>
+        </div>
       </div>
 
       <div id="melding" class="melding"></div>
@@ -375,9 +378,9 @@
     /* ══════════════════════════════════════
        ✏️ Fyll inn Supabase-detaljer og passord når database er klar
     ══════════════════════════════════════ */
-      const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
-      const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
-      const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
+    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+    const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
 
     async function loggInn() {
       const pw = document.getElementById('passord-input').value;
