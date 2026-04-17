@@ -188,13 +188,14 @@
     .hero-new-single {
       display: inline-block;
       margin-top: 2rem;
-      font-size: 0.65rem;
+      font-size: 0.8rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--black);
-      background: var(--pink);
-      padding: 6px 18px;
-      box-shadow: 0 0 22px rgba(240,21,122,0.5);
+      color: var(--white);
+      background: var(--pink-d);
+      border: 1px solid var(--pink);
+      padding: 8px 22px;
+      box-shadow: 0 0 22px rgba(240,21,122,0.4);
       animation: badgepulse 2s ease-in-out infinite;
     }
 
@@ -423,15 +424,6 @@
 </head>
 <body>
 
-  <nav>
-    <a href="#" class="nav-brand" style="text-decoration:none;">SHEVILS</a>
-    <div class="nav-links">
-      <a href="#om">Om</a>
-      <a href="#musikk">Musikk</a>
-      <a href="#social">Følg</a>
-    </div>
-  </nav>
-
   <section class="hero">
     <div class="blob blob-pink"></div>
     <div class="blob blob-teal"></div>
@@ -449,16 +441,7 @@
   </section>
 
   <hr class="hr" />
-  <section class="section" id="om">
-    <p class="section-tag reveal">Om bandet</p>
-    <div class="bio-text reveal">
-      <p>Shevils er et hardcoreband fra Oslo. Vi spiller høyt, vi spiller fort, og vi er ikke ferdige ennå. Den nye singelen «Mind Control» er ute nå – hør den der du strømmer musikk.</p>
-    </div>
-  </section>
-
-  <hr class="hr" />
   <section class="section" id="musikk">
-    <p class="section-tag reveal">Hør — Mind Control</p>
     <div class="player-box reveal">
       <p class="single-label">Mind Control</p>
       <audio id="teaser-audio" src="teaser.mp3" preload="none"></audio>
@@ -490,7 +473,6 @@
           <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
-      <p class="track-meta">→ Bytt ut teaser.mp3 med din lydfil</p>
     </div>
   </section>
 
