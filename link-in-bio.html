@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHEVILS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:  #080810;
+      --pink:   #f0157a;
+      --pink-d: #a00050;
+      --teal:   #1fd6c8;
+      --ash:    #13131e;
+      --smoke:  #222234;
+      --off:    #7a7a9a;
+      --white:  #f0ede8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-wrap {
+      width: min(280px, 80vw);
+      margin-bottom: 0.5rem;
+    }
+    .logo-wrap img { width: 100%; display: block; }
+
+    /* Sosiale ikoner */
+    .sosial-rad {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sosial-link {
+      width: 44px; height: 44px;
+      border: 1px solid var(--smoke);
+      background: var(--ash);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      color: var(--off);
+      transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .sosial-link svg { width: 18px; height: 18px; fill: currentColor; }
+    .sosial-link:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 12px rgba(240,21,122,0.3); }
+
+    /* Poster/lenker */
+    #poster-liste {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .post-link {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      border: 1px solid var(--smoke);
+      background: var(--ash);
+      color: var(--white);
+      text-decoration: none;
+      position: relative;
+      transition: border-color 0.15s, background 0.15s;
+      min-height: 70px;
+      overflow: hidden;
+    }
+
+    .post-link::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: var(--pink);
+      box-shadow: 0 0 12px var(--pink);
+      transition: width 0.2s;
+    }
+
+    .post-link:hover { border-color: var(--pink); background: #1a0a14; }
+    .post-link:hover::before { width: 2px; }
+
+    .post-bilde {
+      width: 100px;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+      filter: saturate(0.7) brightness(0.85);
+    }
+
+    .post-innhold {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      padding: 1rem 1.2rem;
+    }
+
+    .post-ikon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+      color: var(--teal);
+    }
+
+    .post-tekst { flex: 1; }
+
+    .post-tittel {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      display: block;
+      color: var(--white);
+    }
+
+    .post-undertittel {
+      font-size: 0.72rem;
+      color: var(--off);
+      display: block;
+      margin-top: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .post-pil {
+      font-size: 0.9rem;
+      color: var(--off);
+      flex-shrink: 0;
+    }
+
+    .pinnet-badge {
+      position: absolute;
+      top: 5px; right: 8px;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .laster, .tom {
+      font-size: 0.8rem;
+      color: var(--off);
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--off);
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Logo -->
+    <a href="/" class="logo-wrap">
+      <img src="logo.png" alt="SHEVILS" />
+    </a>
+
+    <!-- Sosiale lenker -->
+    <!-- ✏️ Oppdater href med riktige profil-URLer -->
+    <div class="sosial-rad">
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="sosial-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://open.spotify.com" target="_blank" rel="noopener" class="sosial-link">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" class="sosial-link">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://facebook.com" target="_blank" rel="noopener" class="sosial-link">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+    </div>
+
+    <!-- Dynamiske poster fra Supabase -->
+    <!-- ✏️ Fyll inn SUPABASE_URL og SUPABASE_KEY når database er klar -->
+    <div id="poster-liste">
+      <p class="laster">laster...</p>
+    </div>
+
+    <footer>&copy; 2026 Shevils</footer>
+  </div>
+
+  <script>
+    /* ══════════════════════════════════════
+       ✏️ Fyll inn Supabase-detaljer når database er klar
+    ══════════════════════════════════════ */
+    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+
+    const ikoner = {
+      konsert:    '▶',
+      anmeldelse: '★',
+      musikk:     '♪',
+      nyhet:      '→',
+      video:      '▶',
+      annet:      '·'
+    };
+
+    async function hentPoster() {
+      const liste = document.getElementById('poster-liste');
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/poster?order=pinned.desc,created_at.desc`,
+          { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+        );
+        const data = await res.json();
+
+        if (!data.length) {
+          liste.innerHTML = '<p class="tom">ingen poster enda.</p>';
+          return;
+        }
+
+        const pinnede  = data.filter(p => p.pinned);
+        const upinnede = data.filter(p => !p.pinned).slice(0, 5);
+        const poster   = [...pinnede, ...upinnede];
+
+        liste.innerHTML = poster.map(p => `
+          <a class="post-link" href="${p.lenke}" target="_blank" rel="noopener">
+            ${p.bilde_url ? `<img class="post-bilde" src="${p.bilde_url}" alt="" />` : ''}
+            ${p.pinned ? '<span class="pinnet-badge">pinnet</span>' : ''}
+            <div class="post-innhold">
+              ${!p.bilde_url ? `<span class="post-ikon">${ikoner[p.type] || ikoner.annet}</span>` : ''}
+              <span class="post-tekst">
+                <span class="post-tittel">${p.tittel}</span>
+                ${p.undertittel ? `<span class="post-undertittel">${p.undertittel}</span>` : ''}
+              </span>
+              <span class="post-pil">↗</span>
+            </div>
+          </a>
+        `).join('');
+      } catch (e) {
+        liste.innerHTML = '<p class="tom">kunne ikke laste poster.</p>';
+      }
+    }
+
+    hentPoster();
+  </script>
+</body>
+</html>

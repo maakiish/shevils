@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shevils Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:  #080810;
+      --pink:   #f0157a;
+      --pink-d: #a00050;
+      --teal:   #1fd6c8;
+      --ash:    #13131e;
+      --smoke:  #222234;
+      --off:    #7a7a9a;
+      --white:  #f0ede8;
+      --red:    #cc2200;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999;
+    }
+
+    /* ── LOGIN ── */
+    #login-skjerm {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-boks {
+      background: var(--ash);
+      border: 1px solid var(--smoke);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 340px;
+      position: relative;
+    }
+
+    .login-boks::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--pink), var(--teal));
+    }
+
+    .login-boks h1 {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--pink);
+      text-shadow: 0 0 20px rgba(240,21,122,0.4);
+      margin-bottom: 2rem;
+    }
+
+    #admin-skjerm { display: none; position: relative; z-index: 1; }
+
+    /* ── ADMIN ── */
+    .admin-container {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--smoke);
+    }
+
+    .admin-header h1 {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      color: var(--pink);
+    }
+
+    /* ── SKJEMA ── */
+    .skjema {
+      background: var(--ash);
+      border: 1px solid var(--smoke);
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .skjema::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--pink), var(--teal));
+    }
+
+    .skjema h2 {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .felt {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .felt-rad {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--off);
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="password"],
+    select {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--smoke);
+      background: var(--black);
+      color: var(--white);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 8px rgba(240,21,122,0.2);
+    }
+
+    select option { background: var(--black); }
+
+    input[type="checkbox"] {
+      width: 18px; height: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: var(--pink);
+    }
+
+    input[type="file"] {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--off);
+      width: 100%;
+    }
+
+    /* ── KNAPPER ── */
+    .knapp {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.4rem;
+      border: 1px solid var(--pink);
+      background: transparent;
+      color: var(--pink);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .knapp:hover { background: var(--pink); color: var(--black); box-shadow: 0 0 16px rgba(240,21,122,0.4); }
+
+    .knapp.slett { border-color: var(--red); color: var(--red); }
+    .knapp.slett:hover { background: var(--red); color: var(--white); box-shadow: none; }
+
+    .knapp.liten { font-size: 0.65rem; padding: 0.4rem 0.8rem; }
+
+    .knapp.pin { border-color: var(--off); color: var(--off); }
+    .knapp.pin:hover { background: var(--off); color: var(--black); box-shadow: none; }
+    .knapp.pin.aktiv { border-color: var(--teal); color: var(--teal); }
+    .knapp.pin.aktiv:hover { background: var(--teal); color: var(--black); }
+
+    .knapp.nøytral { border-color: var(--smoke); color: var(--off); }
+    .knapp.nøytral:hover { background: var(--smoke); color: var(--white); box-shadow: none; }
+
+    /* ── POSTER ── */
+    .seksjonstekst {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .seksjonstekst::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--teal);
+    }
+
+    .post-rad {
+      background: var(--ash);
+      border: 1px solid var(--smoke);
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.15s;
+    }
+    .post-rad.er-pinnet { border-left: 2px solid var(--teal); }
+    .post-rad:hover { border-color: var(--smoke); }
+
+    .post-bilde-preview {
+      width: 48px; height: 48px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--smoke);
+    }
+
+    .post-rad-tekst { flex: 1; min-width: 0; }
+    .post-rad-tekst strong {
+      display: block;
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-rad-tekst span { font-size: 0.7rem; color: var(--off); }
+
+    .post-rad-handlinger { display: flex; gap: 0.4rem; flex-shrink: 0; }
+
+    .rediger-skjema {
+      background: #0e0e18;
+      border: 1px solid var(--smoke);
+      border-top: none;
+      padding: 1.2rem;
+      margin-bottom: 0.6rem;
+      margin-top: -0.6rem;
+    }
+
+    /* ── MELDINGER ── */
+    .melding {
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--smoke);
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      display: none;
+    }
+    .melding.ok   { border-color: var(--teal); color: var(--teal); }
+    .melding.feil { border-color: var(--red);  color: var(--red); }
+
+    .laster-tekst { color: var(--off); font-size: 0.8rem; letter-spacing: 0.1em; }
+
+    #bilde-preview {
+      display: none;
+      width: 80px; height: 80px;
+      object-fit: cover;
+      border: 1px solid var(--smoke);
+      margin-top: 0.5rem;
+    }
+
+    canvas#komprimering-canvas { display: none; }
+
+    #login-feil {
+      font-size: 0.75rem;
+      color: var(--red);
+      margin-bottom: 0.8rem;
+      display: none;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── INNLOGGING ── -->
+  <div id="login-skjerm">
+    <div class="login-boks">
+      <h1>Shevils Admin</h1>
+      <div class="felt">
+        <label>Passord</label>
+        <input type="password" id="passord-input" placeholder="••••••••" />
+      </div>
+      <p id="login-feil">Feil passord</p>
+      <button class="knapp" onclick="loggInn()">Logg inn</button>
+    </div>
+  </div>
+
+  <!-- ── ADMIN ── -->
+  <div id="admin-skjerm">
+    <div class="admin-container">
+
+      <div class="admin-header">
+        <h1>Shevils Admin</h1>
+        <button class="knapp liten nøytral" onclick="loggUt()">Logg ut</button>
+      </div>
+
+      <div id="melding" class="melding"></div>
+
+      <!-- NY POST -->
+      <div class="skjema">
+        <h2>Ny post</h2>
+        <div class="felt">
+          <label>Tittel *</label>
+          <input type="text" id="ny-tittel" placeholder="f.eks. Mind Control ute nå" />
+        </div>
+        <div class="felt">
+          <label>Undertittel</label>
+          <input type="text" id="ny-undertittel" placeholder="valgfri beskrivelse" />
+        </div>
+        <div class="felt">
+          <label>Lenke *</label>
+          <input type="url" id="ny-lenke" placeholder="https://..." />
+        </div>
+        <div class="felt">
+          <label>Type</label>
+          <select id="ny-type">
+            <option value="nyhet">→ Nyhet</option>
+            <option value="konsert">▶ Konsert</option>
+            <option value="anmeldelse">★ Anmeldelse</option>
+            <option value="musikk">♪ Musikk</option>
+            <option value="video">▶ Video</option>
+            <option value="annet">· Annet</option>
+          </select>
+        </div>
+        <div class="felt">
+          <label>Bilde (valgfritt)</label>
+          <input type="file" id="ny-bilde" accept="image/*" />
+          <img id="bilde-preview" alt="preview" />
+        </div>
+        <div class="felt-rad">
+          <input type="checkbox" id="ny-pinned" />
+          <label for="ny-pinned">Fest øverst</label>
+        </div>
+        <button class="knapp" onclick="leggTilPost()">Publiser</button>
+      </div>
+
+      <!-- EKSISTERENDE POSTER -->
+      <p class="seksjonstekst">Eksisterende poster</p>
+      <div id="poster-liste">
+        <p class="laster-tekst">laster...</p>
+      </div>
+
+    </div>
+  </div>
+
+  <canvas id="komprimering-canvas"></canvas>
+
+  <script>
+    /* ══════════════════════════════════════
+       ✏️ Fyll inn Supabase-detaljer og passord når database er klar
+    ══════════════════════════════════════ */
+    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+    const ADMIN_PASSORD = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
+
+    function loggInn() {
+      const pw = document.getElementById('passord-input').value;
+      if (pw === ADMIN_PASSORD) {
+        sessionStorage.setItem('shevils-admin', '1');
+        visAdmin();
+      } else {
+        document.getElementById('login-feil').style.display = 'block';
+      }
+    }
+
+    document.getElementById('passord-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') loggInn();
+    });
+
+    function loggUt() {
+      sessionStorage.removeItem('shevils-admin');
+      document.getElementById('login-skjerm').style.display = 'flex';
+      document.getElementById('admin-skjerm').style.display = 'none';
+    }
+
+    function visAdmin() {
+      document.getElementById('login-skjerm').style.display = 'none';
+      document.getElementById('admin-skjerm').style.display = 'block';
+      hentPoster();
+    }
+
+    if (sessionStorage.getItem('shevils-admin')) visAdmin();
+
+    async function apiFetch(path, options = {}) {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+        ...options,
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=representation',
+          ...(options.headers || {})
+        }
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
+    }
+
+    async function hentPoster() {
+      const liste = document.getElementById('poster-liste');
+      try {
+        const data = await apiFetch('poster?order=pinned.desc,created_at.desc');
+        if (!data.length) {
+          liste.innerHTML = '<p class="laster-tekst">ingen poster enda.</p>';
+          return;
+        }
+        liste.innerHTML = data.map(p => `
+          <div class="post-rad${p.pinned ? ' er-pinnet' : ''}" id="rad-${p.id}">
+            ${p.bilde_url ? `<img class="post-bilde-preview" src="${p.bilde_url}" alt="" />` : ''}
+            <div class="post-rad-tekst">
+              <strong>${p.pinned ? '📌 ' : ''}${p.tittel}</strong>
+              <span>${p.type}${p.undertittel ? ' · ' + p.undertittel : ''}</span>
+            </div>
+            <div class="post-rad-handlinger">
+              <button class="knapp liten" onclick="visRedigering(${p.id})">Rediger</button>
+              <button class="knapp liten pin${p.pinned ? ' aktiv' : ''}" onclick="togglePin(${p.id}, ${p.pinned})">${p.pinned ? 'Løsne' : 'Fest'}</button>
+              <button class="knapp liten slett" onclick="slettPost(${p.id})">Slett</button>
+            </div>
+          </div>
+          <div class="rediger-skjema" id="rediger-${p.id}" style="display:none;">
+            <div class="felt">
+              <label>Tittel</label>
+              <input type="text" id="red-tittel-${p.id}" value="${p.tittel.replace(/"/g, '&quot;')}" />
+            </div>
+            <div class="felt">
+              <label>Undertittel</label>
+              <input type="text" id="red-undertittel-${p.id}" value="${(p.undertittel || '').replace(/"/g, '&quot;')}" />
+            </div>
+            <div class="felt">
+              <label>Lenke</label>
+              <input type="url" id="red-lenke-${p.id}" value="${p.lenke}" />
+            </div>
+            <div class="felt">
+              <label>Type</label>
+              <select id="red-type-${p.id}">
+                <option value="nyhet" ${p.type==='nyhet'?'selected':''}>→ Nyhet</option>
+                <option value="konsert" ${p.type==='konsert'?'selected':''}>▶ Konsert</option>
+                <option value="anmeldelse" ${p.type==='anmeldelse'?'selected':''}>★ Anmeldelse</option>
+                <option value="musikk" ${p.type==='musikk'?'selected':''}>♪ Musikk</option>
+                <option value="video" ${p.type==='video'?'selected':''}>▶ Video</option>
+                <option value="annet" ${p.type==='annet'?'selected':''}>· Annet</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:0.5rem;margin-top:0.8rem;">
+              <button class="knapp liten" onclick="lagreRedigering(${p.id})">Lagre</button>
+              <button class="knapp liten nøytral" onclick="skjulRedigering(${p.id})">Avbryt</button>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) {
+        liste.innerHTML = '<p style="color:var(--red);font-size:.8rem;">Kunne ikke laste poster.</p>';
+      }
+    }
+
+    function visRedigering(id) {
+      document.querySelectorAll('.rediger-skjema').forEach(el => el.style.display = 'none');
+      document.getElementById(`rediger-${id}`).style.display = 'block';
+    }
+
+    function skjulRedigering(id) {
+      document.getElementById(`rediger-${id}`).style.display = 'none';
+    }
+
+    async function lagreRedigering(id) {
+      const tittel      = document.getElementById(`red-tittel-${id}`).value.trim();
+      const undertittel = document.getElementById(`red-undertittel-${id}`).value.trim();
+      const lenke       = document.getElementById(`red-lenke-${id}`).value.trim();
+      const type        = document.getElementById(`red-type-${id}`).value;
+      if (!tittel || !lenke) { visMelding('Tittel og lenke er påkrevd.', 'feil'); return; }
+      try {
+        await apiFetch(`poster?id=eq.${id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({ tittel, undertittel, lenke, type })
+        });
+        visMelding('Lagret!', 'ok');
+        hentPoster();
+      } catch(e) {
+        visMelding('Kunne ikke lagre.', 'feil');
+      }
+    }
+
+    document.getElementById('ny-bilde').addEventListener('change', function() {
+      const fil = this.files[0];
+      if (!fil) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const preview = document.getElementById('bilde-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(fil);
+    });
+
+    async function komprimerOgLastOpp(fil) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = e => { img.src = e.target.result; };
+        img.onload = async () => {
+          const maks = 400;
+          let w = img.width, h = img.height;
+          if (w > h) { if (w > maks) { h = h * maks / w; w = maks; } }
+          else        { if (h > maks) { w = w * maks / h; h = maks; } }
+          const canvas = document.getElementById('komprimering-canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          canvas.toBlob(async blob => {
+            const filnavn = `${Date.now()}-${fil.name.replace(/[^a-z0-9.]/gi, '_')}`;
+            try {
+              const res = await fetch(`${SUPABASE_URL}/storage/v1/object/bilder/${filnavn}`, {
+                method: 'POST',
+                headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'image/jpeg' },
+                body: blob
+              });
+              if (!res.ok) throw new Error(await res.text());
+              resolve(`${SUPABASE_URL}/storage/v1/object/public/bilder/${filnavn}`);
+            } catch(e) { reject(e); }
+          }, 'image/jpeg', 0.75);
+        };
+        img.onerror = reject;
+        reader.readAsDataURL(fil);
+      });
+    }
+
+    async function leggTilPost() {
+      const tittel      = document.getElementById('ny-tittel').value.trim();
+      const undertittel = document.getElementById('ny-undertittel').value.trim();
+      const lenke       = document.getElementById('ny-lenke').value.trim();
+      const bildefil    = document.getElementById('ny-bilde').files[0];
+      const type        = document.getElementById('ny-type').value;
+      const pinned      = document.getElementById('ny-pinned').checked;
+      if (!tittel || !lenke) { visMelding('Tittel og lenke er påkrevd.', 'feil'); return; }
+      let bilde_url = null;
+      if (bildefil) {
+        visMelding('Laster opp bilde...', 'ok');
+        try { bilde_url = await komprimerOgLastOpp(bildefil); }
+        catch(e) { visMelding('Kunne ikke laste opp bilde.', 'feil'); return; }
+      }
+      try {
+        await apiFetch('poster', { method: 'POST', body: JSON.stringify({ tittel, undertittel, lenke, bilde_url, type, pinned }) });
+        visMelding('Publisert!', 'ok');
+        document.getElementById('ny-tittel').value = '';
+        document.getElementById('ny-undertittel').value = '';
+        document.getElementById('ny-lenke').value = '';
+        document.getElementById('ny-bilde').value = '';
+        document.getElementById('bilde-preview').style.display = 'none';
+        document.getElementById('ny-pinned').checked = false;
+        hentPoster();
+      } catch(e) {
+        visMelding('Noe gikk galt. Prøv igjen.', 'feil');
+      }
+    }
+
+    async function togglePin(id, erPinnet) {
+      try {
+        await apiFetch(`poster?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ pinned: !erPinnet }) });
+        hentPoster();
+      } catch(e) { visMelding('Kunne ikke oppdatere.', 'feil'); }
+    }
+
+    async function slettPost(id) {
+      if (!confirm('Sikker på at du vil slette denne?')) return;
+      try {
+        await apiFetch(`poster?id=eq.${id}`, { method: 'DELETE' });
+        hentPoster();
+      } catch(e) { visMelding('Kunne ikke slette.', 'feil'); }
+    }
+
+    function visMelding(tekst, type) {
+      const el = document.getElementById('melding');
+      el.textContent = tekst;
+      el.className = `melding ${type}`;
+      el.style.display = 'block';
+      setTimeout(() => { el.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>
