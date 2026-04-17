@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHEVILS</title>
+  <meta name="description" content="Shevils – offisiell nettside" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black:  #080810;
+      --pink:   #f0157a;
+      --pink-d: #a00050;
+      --teal:   #1fd6c8;
+      --teal-d: #0e8f86;
+      --ash:    #13131e;
+      --smoke:  #222234;
+      --off:    #7a7a9a;
+      --white:  #f0ede8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Share Tech Mono', 'Courier New', monospace;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--smoke);
+      position: sticky;
+      top: 0;
+      background: rgba(8,8,16,0.96);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.3rem;
+      color: var(--pink);
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 12px rgba(240,21,122,0.6);
+    }
+
+    .nav-links { display: flex; gap: 1.8rem; }
+
+    nav a {
+      color: var(--off);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: var(--teal); }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .blob-pink {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(240,21,122,0.2) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: drift1 12s ease-in-out infinite alternate;
+    }
+    .blob-teal {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(31,214,200,0.16) 0%, transparent 70%);
+      bottom: -80px; right: -80px;
+      animation: drift2 10s ease-in-out infinite alternate;
+    }
+    .blob-pink2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(240,21,122,0.1) 0%, transparent 70%);
+      bottom: 20%; left: 40%;
+      animation: drift1 14s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes drift1 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(60px,40px) scale(1.1); }
+    }
+    @keyframes drift2 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(-40px,-60px) scale(1.08); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .cover-art {
+      width: min(340px, 80vw);
+      height: min(340px, 80vw);
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+
+    .cover-art img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-art::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 2px solid var(--pink);
+      box-shadow: 0 0 24px rgba(240,21,122,0.55), 0 0 70px rgba(240,21,122,0.2);
+      z-index: 1;
+      pointer-events: none;
+      animation: glowpulse 3s ease-in-out infinite;
+    }
+
+    .cover-art::after {
+      content: '';
+      position: absolute;
+      inset: -9px;
+      border: 1px solid rgba(31,214,200,0.25);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes glowpulse {
+      0%,100% { box-shadow: 0 0 24px rgba(240,21,122,0.55), 0 0 70px rgba(240,21,122,0.2); }
+      50%      { box-shadow: 0 0 36px rgba(240,21,122,0.75), 0 0 100px rgba(240,21,122,0.3); }
+    }
+
+    .hero h1 {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      color: var(--pink);
+      text-shadow: 0 0 20px rgba(240,21,122,0.8), 0 0 60px rgba(240,21,122,0.3), 3px 3px 0 var(--pink-d);
+      animation: textflicker 6s step-end infinite;
+    }
+
+    @keyframes textflicker {
+      0%,92%,94%,96%,100% { opacity: 1; }
+      93%,95% { opacity: 0.9; }
+    }
+
+    .hero-tagline {
+      margin-top: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-shadow: 0 0 10px rgba(31,214,200,0.5);
+    }
+
+    .hero-new-single {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--pink);
+      padding: 6px 18px;
+      box-shadow: 0 0 22px rgba(240,21,122,0.5);
+      animation: badgepulse 2s ease-in-out infinite;
+    }
+
+    @keyframes badgepulse {
+      0%,100% { box-shadow: 0 0 22px rgba(240,21,122,0.5); }
+      50%      { box-shadow: 0 0 38px rgba(240,21,122,0.8); }
+    }
+
+    .section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+
+    .section-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--teal);
+      box-shadow: 0 0 6px var(--teal);
+    }
+
+    .hr {
+      border: none;
+      border-top: 1px solid var(--smoke);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .bio-text p {
+      font-size: 0.95rem;
+      line-height: 1.95;
+      color: rgba(240,237,232,0.7);
+    }
+
+    .player-box {
+      background: var(--ash);
+      border: 1px solid var(--smoke);
+      padding: 1.8rem;
+      position: relative;
+    }
+
+    .player-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--pink), var(--teal));
+      box-shadow: 0 0 10px rgba(240,21,122,0.4);
+    }
+
+    .single-label {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.1rem;
+      color: var(--pink);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 10px rgba(240,21,122,0.4);
+    }
+
+    .player-inner { display: flex; align-items: center; gap: 1rem; }
+
+    #play-btn {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border: 1px solid var(--pink);
+      background: transparent;
+      color: var(--pink);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 0 10px rgba(240,21,122,0.3);
+    }
+    #play-btn:hover { background: var(--pink); color: var(--black); box-shadow: 0 0 20px rgba(240,21,122,0.6); }
+    #play-btn svg { width: 16px; height: 16px; }
+
+    .waveform {
+      display: flex; align-items: center; gap: 2px;
+      flex: 1; height: 36px; cursor: pointer;
+    }
+    .waveform span {
+      display: block; flex: 1;
+      background: var(--smoke); border-radius: 1px;
+      transition: background 0.1s;
+    }
+    .waveform span.spilt { background: var(--pink); box-shadow: 0 0 4px rgba(240,21,122,0.6); }
+
+    .waveform span:nth-child(1)  { height: 30%; } .waveform span:nth-child(2)  { height: 55%; }
+    .waveform span:nth-child(3)  { height: 80%; } .waveform span:nth-child(4)  { height: 45%; }
+    .waveform span:nth-child(5)  { height: 70%; } .waveform span:nth-child(6)  { height: 35%; }
+    .waveform span:nth-child(7)  { height: 95%; } .waveform span:nth-child(8)  { height: 50%; }
+    .waveform span:nth-child(9)  { height: 65%; } .waveform span:nth-child(10) { height: 40%; }
+    .waveform span:nth-child(11) { height: 85%; } .waveform span:nth-child(12) { height: 55%; }
+    .waveform span:nth-child(13) { height: 75%; } .waveform span:nth-child(14) { height: 30%; }
+    .waveform span:nth-child(15) { height: 60%; } .waveform span:nth-child(16) { height: 95%; }
+    .waveform span:nth-child(17) { height: 45%; } .waveform span:nth-child(18) { height: 70%; }
+    .waveform span:nth-child(19) { height: 35%; } .waveform span:nth-child(20) { height: 80%; }
+    .waveform span:nth-child(21) { height: 50%; } .waveform span:nth-child(22) { height: 65%; }
+    .waveform span:nth-child(23) { height: 40%; } .waveform span:nth-child(24) { height: 75%; }
+    .waveform span:nth-child(25) { height: 55%; } .waveform span:nth-child(26) { height: 90%; }
+    .waveform span:nth-child(27) { height: 30%; } .waveform span:nth-child(28) { height: 60%; }
+    .waveform span:nth-child(29) { height: 45%; } .waveform span:nth-child(30) { height: 70%; }
+    .waveform span:nth-child(31) { height: 90%; } .waveform span:nth-child(32) { height: 40%; }
+    .waveform span:nth-child(33) { height: 65%; } .waveform span:nth-child(34) { height: 50%; }
+    .waveform span:nth-child(35) { height: 80%; } .waveform span:nth-child(36) { height: 35%; }
+    .waveform span:nth-child(37) { height: 55%; } .waveform span:nth-child(38) { height: 75%; }
+    .waveform span:nth-child(39) { height: 45%; } .waveform span:nth-child(40) { height: 95%; }
+    .waveform span:nth-child(41) { height: 30%; } .waveform span:nth-child(42) { height: 60%; }
+    .waveform span:nth-child(43) { height: 85%; } .waveform span:nth-child(44) { height: 50%; }
+    .waveform span:nth-child(45) { height: 70%; } .waveform span:nth-child(46) { height: 40%; }
+    .waveform span:nth-child(47) { height: 90%; } .waveform span:nth-child(48) { height: 55%; }
+    .waveform span:nth-child(49) { height: 35%; } .waveform span:nth-child(50) { height: 75%; }
+    .waveform span:nth-child(51) { height: 60%; } .waveform span:nth-child(52) { height: 45%; }
+    .waveform span:nth-child(53) { height: 80%; } .waveform span:nth-child(54) { height: 30%; }
+    .waveform span:nth-child(55) { height: 65%; } .waveform span:nth-child(56) { height: 50%; }
+    .waveform span:nth-child(57) { height: 90%; } .waveform span:nth-child(58) { height: 40%; }
+    .waveform span:nth-child(59) { height: 70%; } .waveform span:nth-child(60) { height: 55%; }
+    .waveform span:nth-child(61) { height: 85%; } .waveform span:nth-child(62) { height: 35%; }
+    .waveform span:nth-child(63) { height: 60%; } .waveform span:nth-child(64) { height: 75%; }
+    .waveform span:nth-child(65) { height: 45%; } .waveform span:nth-child(66) { height: 95%; }
+    .waveform span:nth-child(67) { height: 30%; } .waveform span:nth-child(68) { height: 55%; }
+    .waveform span:nth-child(69) { height: 80%; } .waveform span:nth-child(70) { height: 40%; }
+    .waveform span:nth-child(71) { height: 65%; } .waveform span:nth-child(72) { height: 50%; }
+    .waveform span:nth-child(73) { height: 85%; } .waveform span:nth-child(74) { height: 35%; }
+    .waveform span:nth-child(75) { height: 70%; }
+
+    .track-meta {
+      margin-top: 1rem; font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--off);
+    }
+
+    .gig-list { list-style: none; border: 1px solid var(--smoke); }
+
+    .gig-item {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      align-items: center; gap: 1.5rem;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--smoke);
+      transition: background 0.15s;
+      position: relative; overflow: hidden;
+    }
+    .gig-item:last-child { border-bottom: none; }
+    .gig-item::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 0;
+      background: var(--pink); box-shadow: 0 0 12px var(--pink);
+      transition: width 0.2s;
+    }
+    .gig-item:hover { background: var(--ash); }
+    .gig-item:hover::before { width: 2px; }
+
+    .gig-date {
+      font-family: 'Boogaloo', sans-serif; font-size: 1.05rem;
+      color: var(--teal); letter-spacing: 0.05em;
+      text-shadow: 0 0 8px rgba(31,214,200,0.4);
+    }
+
+    .gig-info strong {
+      display: block; font-family: 'Share Tech Mono', monospace;
+      font-weight: normal; font-size: 0.9rem; color: var(--white);
+    }
+    .gig-info span { font-size: 0.7rem; color: var(--off); letter-spacing: 0.08em; }
+
+    .gig-ticket {
+      font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 6px 14px; border: 1px solid var(--teal); color: var(--teal);
+      text-decoration: none; transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .gig-ticket:hover { background: var(--teal); color: var(--black); box-shadow: 0 0 16px rgba(31,214,200,0.5); }
+
+    .stream-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    .stream-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Share Tech Mono', monospace; font-size: 0.78rem;
+      letter-spacing: 0.1em; padding: 10px 18px;
+      background: var(--ash); border: 1px solid var(--smoke);
+      color: var(--off); text-decoration: none;
+      transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .stream-btn svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+    .stream-btn:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 12px rgba(240,21,122,0.3); }
+
+    .social-links { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    .social-link {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--off);
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 10px 18px; border: 1px solid var(--smoke); background: var(--ash);
+      transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .social-link svg { width: 15px; height: 15px; fill: currentColor; }
+    .social-link:hover { color: var(--teal); border-color: var(--teal); box-shadow: 0 0 12px rgba(31,214,200,0.25); }
+
+    footer {
+      border-top: 1px solid var(--smoke);
+      padding: 1.5rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--off); opacity: 0.5;
+    }
+    .footer-name { font-family: 'Boogaloo', sans-serif; font-size: 1rem; color: var(--pink); opacity: 0.7; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.synlig { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0.9rem 1.2rem; }
+      .nav-links { gap: 1.1rem; }
+      .section { padding: 3.5rem 1.5rem; }
+      .gig-item { grid-template-columns: 70px 1fr; }
+      .gig-ticket { display: none; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-brand" style="text-decoration:none;">SHEVILS</a>
+    <div class="nav-links">
+      <a href="#om">Om</a>
+      <a href="#musikk">Musikk</a>
+      <a href="#konserter">Konserter</a>
+      <a href="#social">Følg</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="blob blob-pink"></div>
+    <div class="blob blob-teal"></div>
+    <div class="blob blob-pink2"></div>
+    <div class="hero-inner">
+      <div class="cover-art">
+        <img src="SHEVILS-mind.png" alt="Shevils – Mind Control" />
+      </div>
+      <div style="position:relative;width:min(560px,90vw);margin:0 auto 1rem;">
+        <img src="logo.png" alt="SHEVILS" style="width:100%;display:block;" />
+      </div>
+      <p class="hero-tagline">Oslo &nbsp;·&nbsp; Hardcore</p>
+      <span class="hero-new-single">Ny singel ute nå — Mind Control</span>
+    </div>
+  </section>
+
+  <hr class="hr" />
+  <section class="section" id="om">
+    <p class="section-tag reveal">Om bandet</p>
+    <div class="bio-text reveal">
+      <p>Shevils er et hardcoreband fra Oslo. Vi spiller høyt, vi spiller fort, og vi er ikke ferdige ennå. Den nye singelen «Mind Control» er ute nå – hør den der du strømmer musikk.</p>
+    </div>
+  </section>
+
+  <hr class="hr" />
+  <section class="section" id="musikk">
+    <p class="section-tag reveal">Hør — Mind Control</p>
+    <div class="player-box reveal">
+      <p class="single-label">Mind Control</p>
+      <audio id="teaser-audio" src="teaser.mp3" preload="none"></audio>
+      <div class="player-inner">
+        <button id="play-btn" aria-label="Spill av">
+          <svg id="play-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="6,3 20,12 6,21"/>
+          </svg>
+          <svg id="pause-ikon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <line x1="8" y1="3" x2="8" y2="21"/>
+            <line x1="16" y1="3" x2="16" y2="21"/>
+          </svg>
+        </button>
+        <div class="waveform" id="waveform" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="track-meta">→ Bytt ut teaser.mp3 med din lydfil</p>
+    </div>
+  </section>
+
+  <hr class="hr" />
+  <section class="section" id="konserter">
+    <p class="section-tag reveal">Konserter</p>
+    <ul class="gig-list reveal">
+      <li class="gig-item">
+        <div class="gig-date">14 JUN</div>
+        <div class="gig-info"><strong>Venue, Oslo</strong><span>med spesialgjest</span></div>
+        <a class="gig-ticket" href="https://billetter.no" target="_blank" rel="noopener">Billetter</a>
+      </li>
+      <li class="gig-item">
+        <div class="gig-date">28 JUN</div>
+        <div class="gig-info"><strong>Venue, Bergen</strong><span>Sommerfestival</span></div>
+        <a class="gig-ticket" href="https://billetter.no" target="_blank" rel="noopener">Billetter</a>
+      </li>
+      <li class="gig-item">
+        <div class="gig-date">12 JUL</div>
+        <div class="gig-info"><strong>Venue, Trondheim</strong><span></span></div>
+        <a class="gig-ticket" href="https://billetter.no" target="_blank" rel="noopener">Billetter</a>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="hr" />
+  <section class="section" id="streaming">
+    <p class="section-tag reveal">Strøm musikken</p>
+    <div class="stream-grid reveal">
+      <a class="stream-btn" href="https://open.spotify.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Spotify
+      </a>
+      <a class="stream-btn" href="https://music.apple.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.048-2.31-2.22-2.99-.41-.23-.86-.39-1.29-.55-.3-.11-.61-.17-.92-.23-.19-.04-.39-.07-.58-.09C18.4.03 18.06 0 17.72 0H6.3C5.95 0 5.6.03 5.26.07c-.2.02-.39.05-.58.09-.31.06-.62.12-.92.23-.43.16-.88.32-1.29.55C1.29 1.624.55 2.624.24 3.934A9.23 9.23 0 000 6.124v11.76a9.23 9.23 0 00.24 2.19c.317 1.31 1.048 2.31 2.22 2.99.41.23.86.39 1.29.55.3.11.61.17.92.23.19.04.39.07.58.09.34.04.68.07 1.02.07h11.44c.34 0 .68-.03 1.02-.07.19-.02.39-.05.58-.09.31-.06.62-.12.92-.23.43-.16.88-.32 1.29-.55 1.17-.68 1.9-1.68 2.22-2.99.18-.72.24-1.45.24-2.19V6.124zM15.54 8.394v7.5a.63.63 0 01-.54.62l-4.5.9a.62.62 0 01-.74-.61V9.804a.62.62 0 01.5-.61l4.5-.9a.63.63 0 01.78.61v-.51zm-1.26.93l-2.98.6v4.5l2.98-.6v-4.5z"/></svg>
+        Apple Music
+      </a>
+      <a class="stream-btn" href="https://tidal.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004zM8.008 16.004l4.004-4.004 4.004 4.004 4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004L4.004 12z"/></svg>
+        Tidal
+      </a>
+      <a class="stream-btn" href="https://bandcamp.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+        Bandcamp
+      </a>
+      <a class="stream-btn" href="https://open.qobuz.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.5a7.5 7.5 0 110 15 7.5 7.5 0 010-15zm0 3a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm5.5 8.5l2.5 2.5-1.5 1.5-2.5-2.5 1.5-1.5z"/></svg>
+        Qobuz
+      </a>
+    </div>
+  </section>
+
+  <hr class="hr" />
+  <section class="section" id="social">
+    <p class="section-tag reveal">Følg oss</p>
+    <div class="social-links reveal">
+      <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a class="social-link" href="https://facebook.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+      <a class="social-link" href="https://youtube.com" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-name">SHEVILS</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+  <script>
+    (function() {
+      const audio     = document.getElementById('teaser-audio');
+      const btn       = document.getElementById('play-btn');
+      const playIkon  = document.getElementById('play-ikon');
+      const pauseIkon = document.getElementById('pause-ikon');
+      const waveform  = document.getElementById('waveform');
+      const bars      = waveform.querySelectorAll('span');
+
+      function oppdaterProgress() {
+        if (!audio.duration) return;
+        const progress = audio.currentTime / audio.duration;
+        bars.forEach((bar, i) => {
+          if (i / bars.length < progress) bar.classList.add('spilt');
+          else bar.classList.remove('spilt');
+        });
+      }
+
+      waveform.addEventListener('click', (e) => {
+        if (!audio.duration) return;
+        const rect = waveform.getBoundingClientRect();
+        audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+        oppdaterProgress();
+      });
+
+      audio.addEventListener('timeupdate', oppdaterProgress);
+
+      btn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          playIkon.style.display  = 'none';
+          pauseIkon.style.display = '';
+        } else {
+          audio.pause();
+          playIkon.style.display  = '';
+          pauseIkon.style.display = 'none';
+        }
+      });
+
+      audio.addEventListener('ended', () => {
+        playIkon.style.display  = '';
+        pauseIkon.style.display = 'none';
+        bars.forEach(bar => bar.classList.remove('spilt'));
+      });
+    })();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('synlig');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
