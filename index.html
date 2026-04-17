@@ -41,39 +41,6 @@
       z-index: 998;
     }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--smoke);
-      position: sticky;
-      top: 0;
-      background: rgba(8,8,16,0.96);
-      backdrop-filter: blur(6px);
-      z-index: 100;
-    }
-
-    .nav-brand {
-      font-family: 'Boogaloo', sans-serif;
-      font-size: 1.3rem;
-      color: var(--pink);
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 12px rgba(240,21,122,0.6);
-    }
-
-    .nav-links { display: flex; gap: 1.8rem; }
-
-    nav a {
-      color: var(--off);
-      text-decoration: none;
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      transition: color 0.15s;
-    }
-    nav a:hover { color: var(--teal); }
-
     .hero {
       min-height: 92vh;
       display: grid;
@@ -121,6 +88,7 @@
       position: relative;
       z-index: 1;
       text-align: center;
+      width: 100%;
     }
 
     .cover-art {
@@ -161,30 +129,6 @@
       50%      { box-shadow: 0 0 36px rgba(240,21,122,0.75), 0 0 100px rgba(240,21,122,0.3); }
     }
 
-    .hero h1 {
-      font-family: 'Boogaloo', sans-serif;
-      font-size: clamp(3.5rem, 12vw, 8rem);
-      line-height: 0.9;
-      letter-spacing: 0.04em;
-      color: var(--pink);
-      text-shadow: 0 0 20px rgba(240,21,122,0.8), 0 0 60px rgba(240,21,122,0.3), 3px 3px 0 var(--pink-d);
-      animation: textflicker 6s step-end infinite;
-    }
-
-    @keyframes textflicker {
-      0%,92%,94%,96%,100% { opacity: 1; }
-      93%,95% { opacity: 0.9; }
-    }
-
-    .hero-tagline {
-      margin-top: 1rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--teal);
-      text-shadow: 0 0 10px rgba(31,214,200,0.5);
-    }
-
     .hero-new-single {
       display: inline-block;
       margin-top: 2rem;
@@ -210,170 +154,12 @@
       padding: 5rem 2.5rem;
     }
 
-    .section-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-    .section-tag::before {
-      content: '';
-      display: block;
-      width: 24px; height: 1px;
-      background: var(--teal);
-      box-shadow: 0 0 6px var(--teal);
-    }
-
     .hr {
       border: none;
       border-top: 1px solid var(--smoke);
       max-width: 780px;
       margin: 0 auto;
     }
-
-    .bio-text p {
-      font-size: 0.95rem;
-      line-height: 1.95;
-      color: rgba(240,237,232,0.7);
-    }
-
-    .player-box {
-      background: var(--ash);
-      border: 1px solid var(--smoke);
-      padding: 1.8rem;
-      position: relative;
-    }
-
-    .player-box::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, var(--pink), var(--teal));
-      box-shadow: 0 0 10px rgba(240,21,122,0.4);
-    }
-
-    .single-label {
-      font-family: 'Boogaloo', sans-serif;
-      font-size: 1.1rem;
-      color: var(--pink);
-      letter-spacing: 0.06em;
-      margin-bottom: 1.2rem;
-      text-shadow: 0 0 10px rgba(240,21,122,0.4);
-    }
-
-    .player-inner { display: flex; align-items: center; gap: 1rem; }
-
-    #play-btn {
-      flex-shrink: 0;
-      width: 44px; height: 44px;
-      border: 1px solid var(--pink);
-      background: transparent;
-      color: var(--pink);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, box-shadow 0.15s;
-      box-shadow: 0 0 10px rgba(240,21,122,0.3);
-    }
-    #play-btn:hover { background: var(--pink); color: var(--black); box-shadow: 0 0 20px rgba(240,21,122,0.6); }
-    #play-btn svg { width: 16px; height: 16px; }
-
-    .waveform {
-      display: flex; align-items: center; gap: 2px;
-      flex: 1; height: 36px; cursor: pointer;
-    }
-    .waveform span {
-      display: block; flex: 1;
-      background: var(--smoke); border-radius: 1px;
-      transition: background 0.1s;
-    }
-    .waveform span.spilt { background: var(--pink); box-shadow: 0 0 4px rgba(240,21,122,0.6); }
-
-    .waveform span:nth-child(1)  { height: 30%; } .waveform span:nth-child(2)  { height: 55%; }
-    .waveform span:nth-child(3)  { height: 80%; } .waveform span:nth-child(4)  { height: 45%; }
-    .waveform span:nth-child(5)  { height: 70%; } .waveform span:nth-child(6)  { height: 35%; }
-    .waveform span:nth-child(7)  { height: 95%; } .waveform span:nth-child(8)  { height: 50%; }
-    .waveform span:nth-child(9)  { height: 65%; } .waveform span:nth-child(10) { height: 40%; }
-    .waveform span:nth-child(11) { height: 85%; } .waveform span:nth-child(12) { height: 55%; }
-    .waveform span:nth-child(13) { height: 75%; } .waveform span:nth-child(14) { height: 30%; }
-    .waveform span:nth-child(15) { height: 60%; } .waveform span:nth-child(16) { height: 95%; }
-    .waveform span:nth-child(17) { height: 45%; } .waveform span:nth-child(18) { height: 70%; }
-    .waveform span:nth-child(19) { height: 35%; } .waveform span:nth-child(20) { height: 80%; }
-    .waveform span:nth-child(21) { height: 50%; } .waveform span:nth-child(22) { height: 65%; }
-    .waveform span:nth-child(23) { height: 40%; } .waveform span:nth-child(24) { height: 75%; }
-    .waveform span:nth-child(25) { height: 55%; } .waveform span:nth-child(26) { height: 90%; }
-    .waveform span:nth-child(27) { height: 30%; } .waveform span:nth-child(28) { height: 60%; }
-    .waveform span:nth-child(29) { height: 45%; } .waveform span:nth-child(30) { height: 70%; }
-    .waveform span:nth-child(31) { height: 90%; } .waveform span:nth-child(32) { height: 40%; }
-    .waveform span:nth-child(33) { height: 65%; } .waveform span:nth-child(34) { height: 50%; }
-    .waveform span:nth-child(35) { height: 80%; } .waveform span:nth-child(36) { height: 35%; }
-    .waveform span:nth-child(37) { height: 55%; } .waveform span:nth-child(38) { height: 75%; }
-    .waveform span:nth-child(39) { height: 45%; } .waveform span:nth-child(40) { height: 95%; }
-    .waveform span:nth-child(41) { height: 30%; } .waveform span:nth-child(42) { height: 60%; }
-    .waveform span:nth-child(43) { height: 85%; } .waveform span:nth-child(44) { height: 50%; }
-    .waveform span:nth-child(45) { height: 70%; } .waveform span:nth-child(46) { height: 40%; }
-    .waveform span:nth-child(47) { height: 90%; } .waveform span:nth-child(48) { height: 55%; }
-    .waveform span:nth-child(49) { height: 35%; } .waveform span:nth-child(50) { height: 75%; }
-    .waveform span:nth-child(51) { height: 60%; } .waveform span:nth-child(52) { height: 45%; }
-    .waveform span:nth-child(53) { height: 80%; } .waveform span:nth-child(54) { height: 30%; }
-    .waveform span:nth-child(55) { height: 65%; } .waveform span:nth-child(56) { height: 50%; }
-    .waveform span:nth-child(57) { height: 90%; } .waveform span:nth-child(58) { height: 40%; }
-    .waveform span:nth-child(59) { height: 70%; } .waveform span:nth-child(60) { height: 55%; }
-    .waveform span:nth-child(61) { height: 85%; } .waveform span:nth-child(62) { height: 35%; }
-    .waveform span:nth-child(63) { height: 60%; } .waveform span:nth-child(64) { height: 75%; }
-    .waveform span:nth-child(65) { height: 45%; } .waveform span:nth-child(66) { height: 95%; }
-    .waveform span:nth-child(67) { height: 30%; } .waveform span:nth-child(68) { height: 55%; }
-    .waveform span:nth-child(69) { height: 80%; } .waveform span:nth-child(70) { height: 40%; }
-    .waveform span:nth-child(71) { height: 65%; } .waveform span:nth-child(72) { height: 50%; }
-    .waveform span:nth-child(73) { height: 85%; } .waveform span:nth-child(74) { height: 35%; }
-    .waveform span:nth-child(75) { height: 70%; }
-
-    .track-meta {
-      margin-top: 1rem; font-size: 0.65rem;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--off);
-    }
-
-    .gig-list { list-style: none; border: 1px solid var(--smoke); }
-
-    .gig-item {
-      display: grid; grid-template-columns: 80px 1fr auto;
-      align-items: center; gap: 1.5rem;
-      padding: 1.1rem 1.5rem;
-      border-bottom: 1px solid var(--smoke);
-      transition: background 0.15s;
-      position: relative; overflow: hidden;
-    }
-    .gig-item:last-child { border-bottom: none; }
-    .gig-item::before {
-      content: ''; position: absolute;
-      left: 0; top: 0; bottom: 0; width: 0;
-      background: var(--pink); box-shadow: 0 0 12px var(--pink);
-      transition: width 0.2s;
-    }
-    .gig-item:hover { background: var(--ash); }
-    .gig-item:hover::before { width: 2px; }
-
-    .gig-date {
-      font-family: 'Boogaloo', sans-serif; font-size: 1.05rem;
-      color: var(--teal); letter-spacing: 0.05em;
-      text-shadow: 0 0 8px rgba(31,214,200,0.4);
-    }
-
-    .gig-info strong {
-      display: block; font-family: 'Share Tech Mono', monospace;
-      font-weight: normal; font-size: 0.9rem; color: var(--white);
-    }
-    .gig-info span { font-size: 0.7rem; color: var(--off); letter-spacing: 0.08em; }
-
-    .gig-ticket {
-      font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 6px 14px; border: 1px solid var(--teal); color: var(--teal);
-      text-decoration: none; transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-    }
-    .gig-ticket:hover { background: var(--teal); color: var(--black); box-shadow: 0 0 16px rgba(31,214,200,0.5); }
 
     .stream-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
 
@@ -413,12 +199,12 @@
     .reveal.synlig { opacity: 1; transform: none; }
 
     @media (max-width: 600px) {
-      nav { padding: 0.9rem 1.2rem; }
-      .nav-links { gap: 1.1rem; }
-      .section { padding: 3.5rem 1.5rem; }
-      .gig-item { grid-template-columns: 70px 1fr; }
-      .gig-ticket { display: none; }
-      footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+      .hero { padding: 3rem 1rem; }
+      .section { padding: 3rem 1rem; }
+      .hero-new-single { font-size: 0.65rem; letter-spacing: 0.15em; padding: 8px 14px; }
+      .stream-btn { font-size: 0.7rem; padding: 8px 12px; }
+      .social-link { font-size: 0.65rem; padding: 8px 12px; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.2rem 1rem; }
     }
   </style>
 </head>
@@ -493,6 +279,7 @@
        STREAMING — lenker til strømmetjenester
        ✏️ Oppdater href-lenkene med riktige artist-URLer
   ══════════════════════════════════════ -->
+  <section class="section" id="streaming">
     <div class="stream-grid reveal">
       <a class="stream-btn" href="https://open.spotify.com/artist/02P3vCNXyOxWhsdYgcOV7v?si=XkL4yq-GRui4FJ0Rgtvw7Q" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
