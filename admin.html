@@ -304,7 +304,7 @@
         <input type="password" id="passord-input" placeholder="••••••••" />
       </div>
       <p id="login-feil">Feil passord</p>
-      <button class="knapp" onclick="loggInn()">Logg inn</button>
+      <button class="knapp" id="login-knapp">Logg inn</button>
     </div>
   </div>
 
@@ -315,7 +315,7 @@
       <div class="admin-header">
         <h1>Shevils Admin</h1>
         <div style="display:flex;gap:0.5rem;">
-          <a href="link-in-bio.html" target="_blank" class="knapp liten nøytral">Link-in-bio ↗</a>
+          <a href="linker.html" target="_blank" class="knapp liten nøytral">Link-in-bio ↗</a>
           <button class="knapp liten nøytral" onclick="loggUt()">Logg ut</button>
         </div>
       </div>
@@ -378,8 +378,8 @@
     /* ══════════════════════════════════════
        ✏️ Fyll inn Supabase-detaljer og passord når database er klar
     ══════════════════════════════════════ */
-    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+    const SUPABASE_URL = 'DIN_SUPABASE_URL';
+    const SUPABASE_KEY = 'DIN_SUPABASE_KEY';
     const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
 
     async function loggInn() {
@@ -393,6 +393,8 @@
         document.getElementById('login-feil').style.display = 'block';
       }
     }
+
+    document.getElementById('login-knapp').addEventListener('click', loggInn);
 
     document.getElementById('passord-input').addEventListener('keydown', e => {
       if (e.key === 'Enter') loggInn();
