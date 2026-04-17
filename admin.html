@@ -380,13 +380,15 @@
     /* ══════════════════════════════════════
        ✏️ Fyll inn Supabase-detaljer og passord når database er klar
     ══════════════════════════════════════ */
-    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
-    const ADMIN_PASSORD = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
+    const SUPABASE_URL = 'DIN_SUPABASE_URL';
+    const SUPABASE_KEY = 'DIN_SUPABASE_KEY';
+    const ADMIN_HASH = '11acb97bcbc88ea6edafdb211a1de7c8f19f3cf40bd5b765fdce41e77950580e';
 
-    function loggInn() {
+    async function loggInn() {
       const pw = document.getElementById('passord-input').value;
-      if (pw === ADMIN_PASSORD) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+      const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+      if (hash === ADMIN_HASH) {
         sessionStorage.setItem('shevils-admin', '1');
         visAdmin();
       } else {
