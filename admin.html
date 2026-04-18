@@ -147,7 +147,7 @@
     input[type="password"],
     select {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 16px;
       padding: 0.65rem 0.9rem;
       border: 1px solid var(--smoke);
       background: var(--black);
@@ -384,13 +384,17 @@
 
     async function loggInn() {
       const pw = document.getElementById('passord-input').value;
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
-      const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
-      if (hash === ADMIN_HASH) {
-        sessionStorage.setItem('shevils-admin', '1');
-        visAdmin();
-      } else {
-        document.getElementById('login-feil').style.display = 'block';
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+        const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+        if (hash === ADMIN_HASH) {
+          sessionStorage.setItem('shevils-admin', '1');
+          visAdmin();
+        } else {
+          document.getElementById('login-feil').style.display = 'block';
+        }
+      } catch(e) {
+        alert('Innlogging feilet: ' + e.message);
       }
     }
 
