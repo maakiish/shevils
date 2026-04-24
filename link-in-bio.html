@@ -48,32 +48,110 @@
       z-index: 1;
     }
 
-    .logo-wrap {
-      width: min(280px, 80vw);
-      margin-bottom: 0.5rem;
-    }
+    .logo-wrap { width: min(280px, 80vw); margin-bottom: 0.5rem; }
     .logo-wrap img { width: 100%; display: block; }
 
-    /* Sosiale ikoner */
-    .sosial-rad {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
+    .sosial-rad { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
 
     .sosial-link {
       width: 44px; height: 44px;
       border: 1px solid var(--smoke);
       background: var(--ash);
       display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      color: var(--off);
+      text-decoration: none; color: var(--off);
       transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
     }
     .sosial-link svg { width: 18px; height: 18px; fill: currentColor; }
     .sosial-link:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 12px rgba(240,21,122,0.3); }
 
-    /* Poster/lenker */
+    /* ══ SINGEL-KORT ══ */
+    /* ✏️ Oppdater ved ny singel: bytt cover-src, tittel og lenker */
+    .singel-kort {
+      width: 100%;
+      border: 1px solid var(--pink);
+      background: var(--ash);
+      position: relative;
+      box-shadow: 0 0 20px rgba(240,21,122,0.2);
+      animation: kortpulse 3s ease-in-out infinite;
+    }
+
+    @keyframes kortpulse {
+      0%,100% { box-shadow: 0 0 20px rgba(240,21,122,0.2); }
+      50%      { box-shadow: 0 0 35px rgba(240,21,122,0.4); }
+    }
+
+    .singel-kort::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--pink), var(--teal));
+    }
+
+    .singel-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid var(--smoke);
+    }
+
+    .singel-cover {
+      width: 64px; height: 64px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid var(--smoke);
+    }
+
+    .singel-info { flex: 1; }
+
+    .singel-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .singel-tittel {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+    }
+
+    .singel-artist {
+      font-size: 0.7rem;
+      color: var(--off);
+      display: block;
+      margin-top: 3px;
+    }
+
+    .singel-lenker { display: flex; flex-direction: column; }
+
+    .singel-lenke {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      color: var(--off);
+      border-bottom: 1px solid var(--smoke);
+      transition: background 0.15s, color 0.15s;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+
+    .singel-lenke:last-child { border-bottom: none; }
+    .singel-lenke:hover { background: #1a0a14; color: var(--pink); }
+    .singel-lenke:hover svg { fill: var(--pink); }
+    .singel-lenke svg { width: 16px; height: 16px; fill: var(--off); flex-shrink: 0; transition: fill 0.15s; }
+    .singel-lenke span { flex: 1; }
+    .singel-lenke-pil { font-size: 0.8rem; }
+
+    /* ══ POSTER ══ */
     #poster-liste {
       width: 100%;
       display: flex;
@@ -82,8 +160,7 @@
     }
 
     .post-link {
-      display: flex;
-      align-items: stretch;
+      display: flex; align-items: stretch;
       width: 100%;
       border: 1px solid var(--smoke);
       background: var(--ash);
@@ -98,8 +175,7 @@
     .post-link::before {
       content: '';
       position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 0;
+      left: 0; top: 0; bottom: 0; width: 0;
       background: var(--pink);
       box-shadow: 0 0 12px var(--pink);
       transition: width 0.2s;
@@ -109,76 +185,47 @@
     .post-link:hover::before { width: 2px; }
 
     .post-bilde {
-      width: 100px;
-      object-fit: cover;
-      flex-shrink: 0;
-      display: block;
+      width: 100px; object-fit: cover;
+      flex-shrink: 0; display: block;
       filter: saturate(0.7) brightness(0.85);
     }
 
     .post-innhold {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex: 1;
-      padding: 1rem 1.2rem;
+      display: flex; align-items: center;
+      gap: 1rem; flex: 1; padding: 1rem 1.2rem;
     }
 
-    .post-ikon {
-      font-size: 1rem;
-      flex-shrink: 0;
-      width: 20px;
-      text-align: center;
-      color: var(--teal);
-    }
-
+    .post-ikon { font-size: 1rem; flex-shrink: 0; width: 20px; text-align: center; color: var(--teal); }
     .post-tekst { flex: 1; }
 
     .post-tittel {
       font-family: 'Boogaloo', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
-      display: block;
-      color: var(--white);
+      font-size: 1.1rem; letter-spacing: 0.04em;
+      display: block; color: var(--white);
     }
 
     .post-undertittel {
-      font-size: 0.72rem;
-      color: var(--off);
-      display: block;
-      margin-top: 3px;
-      letter-spacing: 0.08em;
+      font-size: 0.72rem; color: var(--off);
+      display: block; margin-top: 3px; letter-spacing: 0.08em;
     }
 
-    .post-pil {
-      font-size: 0.9rem;
-      color: var(--off);
-      flex-shrink: 0;
-    }
+    .post-pil { font-size: 0.9rem; color: var(--off); flex-shrink: 0; }
 
     .pinnet-badge {
-      position: absolute;
-      top: 5px; right: 8px;
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--teal);
+      position: absolute; top: 5px; right: 8px;
+      font-size: 0.55rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--teal);
     }
 
     .laster, .tom {
-      font-size: 0.8rem;
-      color: var(--off);
-      letter-spacing: 0.1em;
-      text-align: center;
+      font-size: 0.8rem; color: var(--off);
+      letter-spacing: 0.1em; text-align: center;
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--off);
-      opacity: 0.4;
+      margin-top: 2rem; font-size: 0.62rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--off); opacity: 0.4;
     }
   </style>
 </head>
@@ -191,7 +238,6 @@
     </a>
 
     <!-- Sosiale lenker -->
-    <!-- ✏️ Oppdater href med riktige profil-URLer -->
     <div class="sosial-rad">
       <a href="https://www.instagram.com/shevilsband/" target="_blank" rel="noopener" class="sosial-link">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -207,19 +253,57 @@
       </a>
     </div>
 
+    <!-- ══════════════════════════════════════
+         SINGEL-KORT — hardkodet
+         ✏️ Bytt cover-src, tittel og lenker ved ny utgivelse
+    ══════════════════════════════════════ -->
+    <div class="singel-kort">
+      <div class="singel-header">
+        <img class="singel-cover" src="SHEVILS-mind.png" alt="Mind Control" />
+        <div class="singel-info">
+          <span class="singel-label">New single</span>
+          <span class="singel-tittel">Mind Control</span>
+          <span class="singel-artist">Shevils</span>
+        </div>
+      </div>
+      <div class="singel-lenker">
+        <a class="singel-lenke" href="https://open.spotify.com/artist/02P3vCNXyOxWhsdYgcOV7v" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          <span>Spotify</span>
+          <span class="singel-lenke-pil">↗</span>
+        </a>
+        <a class="singel-lenke" href="https://music.apple.com/no/artist/shevils/476574145?l=nb" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.048-2.31-2.22-2.99-.41-.23-.86-.39-1.29-.55-.3-.11-.61-.17-.92-.23-.19-.04-.39-.07-.58-.09C18.4.03 18.06 0 17.72 0H6.3C5.95 0 5.6.03 5.26.07c-.2.02-.39.05-.58.09-.31.06-.62.12-.92.23-.43.16-.88.32-1.29.55C1.29 1.624.55 2.624.24 3.934A9.23 9.23 0 000 6.124v11.76a9.23 9.23 0 00.24 2.19c.317 1.31 1.048 2.31 2.22 2.99.41.23.86.39 1.29.55.3.11.61.17.92.23.19.04.39.07.58.09.34.04.68.07 1.02.07h11.44c.34 0 .68-.03 1.02-.07.19-.02.39-.05.58-.09.31-.06.62-.12.92-.23.43-.16.88-.32 1.29-.55 1.17-.68 1.9-1.68 2.22-2.99.18-.72.24-1.45.24-2.19V6.124zM15.54 8.394v7.5a.63.63 0 01-.54.62l-4.5.9a.62.62 0 01-.74-.61V9.804a.62.62 0 01.5-.61l4.5-.9a.63.63 0 01.78.61v-.51zm-1.26.93l-2.98.6v4.5l2.98-.6v-4.5z"/></svg>
+          <span>Apple Music</span>
+          <span class="singel-lenke-pil">↗</span>
+        </a>
+        <a class="singel-lenke" href="https://tidal.com/artist/4259034" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004zM8.008 16.004l4.004-4.004 4.004 4.004 4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004L4.004 12z"/></svg>
+          <span>Tidal</span>
+          <span class="singel-lenke-pil">↗</span>
+        </a>
+        <a class="singel-lenke" href="https://shevils.bandcamp.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+          <span>Bandcamp</span>
+          <span class="singel-lenke-pil">↗</span>
+        </a>
+        <a class="singel-lenke" href="https://play.qobuz.com/artist/6784167" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.5a7.5 7.5 0 110 15 7.5 7.5 0 010-15zm0 3a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm5.5 8.5l2.5 2.5-1.5 1.5-2.5-2.5 1.5-1.5z"/></svg>
+          <span>Qobuz</span>
+          <span class="singel-lenke-pil">↗</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Dynamiske poster fra Supabase -->
-    <!-- ✏️ Fyll inn SUPABASE_URL og SUPABASE_KEY når database er klar -->
     <div id="poster-liste">
-      <p class="laster">laster...</p>
+      <p class="laster">loading...</p>
     </div>
 
     <footer>&copy; 2026 Shevils</footer>
   </div>
 
   <script>
-    /* ══════════════════════════════════════
-       ✏️ Fyll inn Supabase-detaljer når database er klar
-    ══════════════════════════════════════ */
     const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
 
@@ -242,7 +326,7 @@
         const data = await res.json();
 
         if (!data.length) {
-          liste.innerHTML = '<p class="tom">ingen poster enda.</p>';
+          liste.innerHTML = '<p class="tom">no posts yet.</p>';
           return;
         }
 
@@ -265,7 +349,7 @@
           </a>
         `).join('');
       } catch (e) {
-        liste.innerHTML = '<p class="tom">kunne ikke laste poster.</p>';
+        liste.innerHTML = '<p class="tom">could not load posts.</p>';
       }
     }
 
