@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>SHEVILS — Promo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:  #080810;
+      --pink:   #f0157a;
+      --pink-d: #a00050;
+      --teal:   #1fd6c8;
+      --ash:    #13131e;
+      --smoke:  #222234;
+      --off:    #7a7a9a;
+      --white:  #f0ede8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-wrap { width: min(260px, 70vw); }
+    .logo-wrap img { width: 100%; display: block; }
+
+    .for-line {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-align: center;
+      min-height: 1em;
+    }
+
+    .cover {
+      width: min(300px, 76vw);
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover::before {
+      content: '';
+      position: absolute; inset: -3px;
+      border: 2px solid var(--pink);
+      box-shadow: 0 0 24px rgba(240,21,122,0.5), 0 0 60px rgba(240,21,122,0.2);
+      pointer-events: none;
+    }
+
+    /* ── PLAYER ── */
+    .player {
+      width: 100%;
+      background: var(--ash);
+      border: 1px solid var(--smoke);
+      position: relative;
+      margin-top: 0.8rem;
+    }
+    .player::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--pink), var(--teal));
+    }
+
+    .now {
+      padding: 1.2rem 1.2rem 0.6rem;
+      text-align: center;
+    }
+    .now-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--off);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .now-title {
+      font-family: 'Boogaloo', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      display: block;
+    }
+
+    .progress-wrap { padding: 0.6rem 1.2rem 0; }
+    .progress {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      touch-action: none;
+    }
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: var(--smoke);
+      position: relative;
+    }
+    .progress-fill {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0%;
+      background: var(--pink);
+      box-shadow: 0 0 8px rgba(240,21,122,0.6);
+    }
+    .times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--off);
+      letter-spacing: 0.1em;
+      padding-top: 2px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 0.8rem 1.2rem 1.2rem;
+    }
+    .ctl {
+      width: 44px; height: 44px;
+      border: 1px solid var(--smoke);
+      background: transparent;
+      color: var(--off);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .ctl:hover { border-color: var(--pink); color: var(--pink); }
+    .ctl svg { width: 16px; height: 16px; fill: currentColor; }
+    .ctl.main {
+      width: 56px; height: 56px;
+      border-color: var(--pink);
+      color: var(--pink);
+      box-shadow: 0 0 14px rgba(240,21,122,0.3);
+    }
+    .ctl.main:hover { background: var(--pink); color: var(--black); }
+    .ctl.main svg { width: 20px; height: 20px; }
+
+    /* ── TRACKLIST ── */
+    .tracklist { border-top: 1px solid var(--smoke); }
+    .track {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--smoke);
+      color: var(--off);
+      font-family: inherit;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .track:last-child { border-bottom: none; }
+    .track:hover { background: #1a0a14; color: var(--white); }
+    .track.active { color: var(--pink); }
+    .track-num { width: 1.6em; color: var(--off); flex-shrink: 0; }
+    .track.active .track-num { color: var(--pink); }
+    .track-title { flex: 1; }
+
+    /* ── STATES ── */
+    .message {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--off);
+      text-align: center;
+      line-height: 1.8;
+      padding: 1rem 0;
+    }
+    .message strong {
+      font-family: 'Boogaloo', sans-serif;
+      font-weight: normal;
+      font-size: 1.4rem;
+      color: var(--pink);
+      letter-spacing: 0.04em;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    [hidden] { display: none !important; }
+
+    footer {
+      margin-top: 1.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--off);
+      opacity: 0.4;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a href="/" class="logo-wrap"><img src="logo.png" alt="SHEVILS" /></a>
+
+    <p class="for-line" id="for-line"></p>
+
+    <div class="message" id="loading">loading...</div>
+
+    <!-- Shown when the link is missing, switched off or expired -->
+    <div class="message" id="denied" hidden>
+      <strong>Link not valid</strong>
+      This link is missing, expired or switched off.<br />
+      Get in touch with the band for a new one.
+    </div>
+
+    <!-- Shown once a valid link has loaded -->
+    <div id="app" hidden style="width:100%;display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <div class="cover"><img src="SHEVILS-mind.png" alt="Shevils" /></div>
+
+      <div class="player">
+        <div class="now">
+          <span class="now-label">Now playing</span>
+          <span class="now-title" id="now-title">—</span>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress" id="progress" aria-label="Seek">
+            <div class="progress-track"><div class="progress-fill" id="fill"></div></div>
+          </div>
+          <div class="times"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
+        </div>
+
+        <div class="controls">
+          <button class="ctl" id="prev" aria-label="Previous track">
+            <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+          </button>
+          <button class="ctl main" id="play" aria-label="Play">
+            <svg id="icon-play" viewBox="0 0 24 24"><path d="M7 4l14 8-14 8z"/></svg>
+            <svg id="icon-pause" viewBox="0 0 24 24" hidden><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <button class="ctl" id="next" aria-label="Next track">
+            <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5l11 7-11 7z"/></svg>
+          </button>
+        </div>
+
+        <div class="tracklist" id="tracklist"></div>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 Shevils &middot; Private promo link &middot; Not for distribution</footer>
+  </div>
+
+  <audio id="audio" preload="none"></audio>
+
+  <script>
+    const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
+    const BUCKET = 'promo';
+
+    const $ = id => document.getElementById(id);
+    const audio = $('audio');
+    let tracks = [];
+    let current = -1;
+
+    function fmt(s) {
+      if (!isFinite(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+    }
+
+    function trackUrl(path) {
+      return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${encodeURIComponent(path)}`;
+    }
+
+    function setPlayingUI(playing) {
+      $('icon-play').hidden = playing;
+      $('icon-pause').hidden = !playing;
+      $('play').setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    }
+
+    function renderList() {
+      const list = $('tracklist');
+      list.textContent = '';
+      tracks.forEach((t, i) => {
+        const b = document.createElement('button');
+        b.className = 'track' + (i === current ? ' active' : '');
+        const n = document.createElement('span');
+        n.className = 'track-num';
+        n.textContent = String(i + 1).padStart(2, '0');
+        const ttl = document.createElement('span');
+        ttl.className = 'track-title';
+        ttl.textContent = t.title;
+        b.append(n, ttl);
+        b.addEventListener('click', () => (i === current ? toggle() : load(i, true)));
+        list.appendChild(b);
+      });
+    }
+
+    function load(i, autoplay) {
+      if (i < 0 || i >= tracks.length) return;
+      current = i;
+      audio.src = trackUrl(tracks[i].file_path);
+      $('now-title').textContent = tracks[i].title;
+      $('fill').style.width = '0%';
+      $('t-cur').textContent = '0:00';
+      $('t-dur').textContent = '0:00';
+      renderList();
+      if (autoplay) audio.play().catch(() => setPlayingUI(false));
+    }
+
+    function toggle() {
+      if (current < 0) { load(0, true); return; }
+      if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+    }
+
+    audio.addEventListener('play',  () => setPlayingUI(true));
+    audio.addEventListener('pause', () => setPlayingUI(false));
+    audio.addEventListener('loadedmetadata', () => { $('t-dur').textContent = fmt(audio.duration); });
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      $('fill').style.width = (audio.currentTime / audio.duration * 100) + '%';
+      $('t-cur').textContent = fmt(audio.currentTime);
+    });
+    audio.addEventListener('ended', () => {
+      if (current < tracks.length - 1) load(current + 1, true);
+      else setPlayingUI(false);
+    });
+    audio.addEventListener('error', () => {
+      $('now-title').textContent = 'Could not load this track';
+      setPlayingUI(false);
+    });
+
+    $('play').addEventListener('click', toggle);
+    $('prev').addEventListener('click', () => {
+      if (audio.currentTime > 3 || current <= 0) audio.currentTime = 0;
+      else load(current - 1, !audio.paused);
+    });
+    $('next').addEventListener('click', () => {
+      if (current < tracks.length - 1) load(current + 1, !audio.paused || current < 0);
+    });
+
+    // Seek by click / drag on the progress bar
+    (function () {
+      const bar = $('progress');
+      let dragging = false;
+      function seek(e) {
+        if (!audio.duration) return;
+        const r = bar.getBoundingClientRect();
+        const x = Math.min(Math.max(e.clientX - r.left, 0), r.width);
+        audio.currentTime = (x / r.width) * audio.duration;
+      }
+      bar.addEventListener('pointerdown', e => { dragging = true; bar.setPointerCapture(e.pointerId); seek(e); });
+      bar.addEventListener('pointermove', e => { if (dragging) seek(e); });
+      bar.addEventListener('pointerup',   () => { dragging = false; });
+    })();
+
+    document.addEventListener('keydown', e => {
+      if (e.code === 'Space' && tracks.length) { e.preventDefault(); toggle(); }
+    });
+
+    function deny() {
+      $('loading').hidden = true;
+      $('denied').hidden = false;
+    }
+
+    async function init() {
+      const token = new URLSearchParams(location.search).get('t');
+      if (!token) { deny(); return; }
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_promo`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ p_token: token })
+        });
+        if (!res.ok) throw new Error(res.status);
+        const rows = await res.json();
+        if (!rows.length) { deny(); return; }
+
+        tracks = rows;
+        $('for-line').textContent = 'Private preview for ' + rows[0].recipient;
+        $('loading').hidden = true;
+        $('app').hidden = false;
+        load(0, false);
+      } catch (e) {
+        $('loading').textContent = 'Could not load. Please try again in a moment.';
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
