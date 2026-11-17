@@ -166,6 +166,29 @@
     .ctl.main:hover { background: var(--pink); color: var(--black); }
     .ctl.main svg { width: 20px; height: 20px; }
 
+
+    /* ── VOLUME ── */
+    .volume {
+      display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+      padding: 0 1.2rem 1.2rem;
+      color: var(--off);
+    }
+    .volume svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+    .volume input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 140px; height: 20px; background: transparent; cursor: pointer; margin: 0;
+    }
+    .volume input[type=range]::-webkit-slider-runnable-track { height: 4px; background: var(--smoke); }
+    .volume input[type=range]::-moz-range-track { height: 4px; background: var(--smoke); }
+    .volume input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px;
+      background: var(--pink); border: none; border-radius: 0; box-shadow: 0 0 8px rgba(240,21,122,0.6);
+    }
+    .volume input[type=range]::-moz-range-thumb {
+      width: 12px; height: 12px; background: var(--pink); border: none; border-radius: 0;
+    }
+    .volume input[type=range]::-moz-range-progress { height: 4px; background: var(--pink); }
+
     /* ── TRACKLIST ── */
     .tracklist { border-top: 1px solid var(--smoke); }
     .track {
@@ -267,6 +290,11 @@
           <button class="ctl" id="next" aria-label="Next track">
             <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5l11 7-11 7z"/></svg>
           </button>
+        </div>
+
+        <div class="volume" id="volume">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+          <input type="range" id="vol" min="0" max="100" value="100" aria-label="Volume" />
         </div>
 
         <div class="tracklist" id="tracklist"></div>
@@ -378,6 +406,22 @@
       bar.addEventListener('pointerdown', e => { dragging = true; bar.setPointerCapture(e.pointerId); seek(e); });
       bar.addEventListener('pointermove', e => { if (dragging) seek(e); });
       bar.addEventListener('pointerup',   () => { dragging = false; });
+    })();
+
+    // Volume (iOS ignores script volume, so the slider is hidden there)
+    (function () {
+      const vol = $('vol');
+      let saved = null;
+      try { saved = localStorage.getItem('shevils-vol'); } catch (e) {}
+      if (saved !== null && !isNaN(saved)) vol.value = saved;
+      audio.volume = vol.value / 100;
+      vol.addEventListener('input', () => {
+        audio.volume = vol.value / 100;
+        try { localStorage.setItem('shevils-vol', vol.value); } catch (e) {}
+      });
+      audio.volume = 0.5;
+      if (audio.volume !== 0.5) $('volume').hidden = true; // volume is read-only (iOS)
+      audio.volume = vol.value / 100;
     })();
 
     document.addEventListener('keydown', e => {
