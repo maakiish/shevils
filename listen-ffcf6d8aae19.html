@@ -301,8 +301,8 @@
     }
 
     function setPlayingUI(playing) {
-      $('icon-play').hidden = playing;
-      $('icon-pause').hidden = !playing;
+      $('icon-play').toggleAttribute('hidden', playing);
+      $('icon-pause').toggleAttribute('hidden', !playing);
       $('play').setAttribute('aria-label', playing ? 'Pause' : 'Play');
     }
 
