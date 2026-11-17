@@ -323,7 +323,8 @@
   <script>
     const SUPABASE_URL = 'https://opctwkuoljsrbhtrsfha.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_DbDeicxQ9jig1yuZkl4wfA_nfdMUsw-';
-    const BUCKET = 'promo';
+    // Audio files live in a Cloudflare R2 bucket (free egress)
+    const AUDIO_BASE = 'https://pub-2d6351c6adb1481284ecd980e0545edc.r2.dev';
 
     const $ = id => document.getElementById(id);
     const audio = $('audio');
@@ -337,7 +338,7 @@
     }
 
     function trackUrl(path) {
-      return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${encodeURIComponent(path)}`;
+      return `${AUDIO_BASE}/${encodeURIComponent(path)}`;
     }
 
     function setPlayingUI(playing) {
